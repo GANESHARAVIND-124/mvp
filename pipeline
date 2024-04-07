@@ -18,6 +18,15 @@ pipeline{
             git branch: 'main', changelog: false, poll: false, url: 'https://github.com/jaisherma/mvp.git'
         }
         }
+		stage("SonarQube analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        bat "mvn sonar:sonar"
+                    }
+                }
+            }
+        }
         stage("Build")
         {
         steps
